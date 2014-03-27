@@ -1,0 +1,27 @@
+{
+  "name": "rehab-compiler",
+  "description":"Concat and minify src files to paths",
+  "version": "0.0.1",
+  "dependencies": {},
+  "main": "rehab.js",
+  "author":
+    {
+      "name":"Cole Lawrence",
+      "email":"cole@zombiehippie.com",
+      "url":"http://zombiehippie.com"
+    },
+  "homepage": "https://github.com/ZombieHippie/rehab-compiler",
+  "bugs": {
+    "url": "https://github.com/ZombieHippie/rehab-compiler/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZombieHippie/rehab-compiler.git"
+  },
+  "licenses": [
+    {
+      "type": "Creative Commons Attribution-ShareAlike 3.0 Unported License",
+      "url": "http://creativecommons.org/licenses/by-sa/3.0/"
+    }
+  ]
+}
