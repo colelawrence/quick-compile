@@ -4,12 +4,13 @@ window.$ = function (sel) {
 	var currentElement = document
 	for (var index = 0, len = selectors.length; index < len; index++) {
 		var selector = selectors[index]
-		var match = selector.match(/$([\#\.]*)([\w\d\-_]+)^/)
+		var match = selector.match(/^([\#\.]?)([\w\d\-_]+)$/)
 		if (match) {
 			var elementsFound;
 			switch(match[1]) {
 				case "#":
 					elementsFound = [document.getElementById(match[2])]
+					break;
 				case ".":
 					elementsFound = currentElement.getElementsByClassName(match[2])
 					break;
