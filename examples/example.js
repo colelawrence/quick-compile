@@ -1,11 +1,13 @@
 rehab = require("../")
 
 var cssMinifier = function (code) {
-	return code.replace(/\/\*[\s\S]*?\*\//g, "").replace(/([\n\:\{\}\;]|[\w\d]\s)[\s\n]+/g, "$1")
+	return code.replace(/\/[\n\s]*\*[\s\S]*?\*\/[\n\s]*/g, "").replace(/([\n\:\{\}\;,]|[\w\d\*]\s)([\s\n\}\{]+)/g, function (match, prec, suff) {
+		return prec + suff.replace(/[\s\n]+/g, "")
+	})
 }
 
 var cssFiles = [
-			"./files/css/normallize.css",
+			"./files/css/normallizer.css",
 			"./files/css/colors.css",
 			"./files/css/backgrounds.css"
 		]
@@ -22,7 +24,13 @@ var options = {
 			compiler: null,
 			separator: ";\n"
 		}
-	}
+	},
+	log: function (msg) {
+		console.log(msg);
+	},
+	separator: "\n"
 }
 
 compiler = new rehab(options)
+
+compiler.generate()

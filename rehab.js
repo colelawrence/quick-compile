@@ -8,20 +8,22 @@ module.exports = (function () {
 	}
 	rehab.prototype = {
 		generator: function (outputPath, options) {
-			var sep = options.separator || this.separator
 			var comp = typeof options.compiler === "undefined" ? this.compiler : options.compiler
-			var filearr = options.files || []
-			for (var i = 0, len = filearr.length; i < len; i++) {
-				input = String(fs.readSync(filearr[i]))
-				out +=  input + sep
+			var sep = options.separator || this.separator
+			var log = this.log
+			var patharr = options.files || []
+			var out = ""
+			var input
+			for (var i = 0, len = patharr.length; i < len; i++) {
+				input = String(fs.readFileSync(patharr[i]))				
+				if (comp)
+					input = comp(input)
+				out += !!i ? sep + input : input
 			}
-			if (comp)
-				out = comp(out)
-			fs.writeSync(key, out)
-			if (log) log("Writing file: \"" + key + "\" with " + out.length + " characters")
+			if (log) log("Writing file: \"" + outputPath + "\" with " + out.length + " characters", 1)
+			fs.writeFileSync(outputPath, out)
 		},
 		generate: function () {
-			var log = this.log
 			var fl = this.files
 			var options
 			var key, v 
@@ -31,7 +33,7 @@ module.exports = (function () {
 					options = { files: v }
 				else
 					options = v
-				this.generator(options)
+				this.generator(key, options)
 			}
 		}
 	}
