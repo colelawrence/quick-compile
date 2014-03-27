@@ -1,4 +1,4 @@
-rehab = require("../")
+var quickCompile = require("../")
 
 var cssMinifier = function (code) {
 	return code.replace(/\/[\n\s]*\*[\s\S]*?\*\/[\n\s]*/g, "").replace(/([\n\:\{\}\;,]|[\w\d\*]\s)([\s\n\}\{]+)/g, function (match, prec, suff) {
@@ -31,6 +31,6 @@ var options = {
 	separator: "\n"
 }
 
-compiler = new rehab(options)
+compiler = new quickCompile(options)
 
 compiler.generate()
