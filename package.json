@@ -1,8 +1,11 @@
 {
   "name": "quick-compile",
   "description":"Concat and minify src files to paths",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {},
+  "devDependencies": {
+    "uglify-js": "~2.4.13"
+  },
   "main": "quick-compile.js",
   "author":
     {

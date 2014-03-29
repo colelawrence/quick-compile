@@ -6,27 +6,10 @@ var cssMinifier = function (code) {
 	})
 }
 
-var cssFiles = [
-			"./files/css/normallizer.css",
-			"./files/css/colors.css",
-			"./files/css/backgrounds.css"
-		]
-var jsFiles = [
-			"./files/js/jquery.js",
-			"./files/js/page.js"
-		]
 var options = {
 	compiler: cssMinifier,
 	files: {
-		"resources/style.css": cssFiles,
-		"resources/script.js": {
-			files: jsFiles,
-			compiler: null,
-			separator: ";\n"
-		}
-	},
-	log: function (msg) {
-		console.log(msg);
+		"resources/minifier-example.css": "./files/css"
 	},
 	separator: "\n"
 }

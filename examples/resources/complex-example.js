@@ -1,3 +1,4 @@
+;
 /* jquery */
 window.$ = function (sel) {
 	var selectors = sel.split(" ")
@@ -23,8 +24,7 @@ window.$ = function (sel) {
 		else throw "Invalid selector part: \"" + selector + "\" in \"" + sel + "\""
 	}
 	return currentElement
-};
-/* page */
+}/* page */
 for (var i = 0; i < window.quotes.length; i++) {
 	$("#quotes").innerHTML += "<blockquote>" + window.quotes[i] + "</blockquote>"
 };
