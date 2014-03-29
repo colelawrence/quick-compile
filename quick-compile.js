@@ -6,7 +6,12 @@ module.exports = (function () {
 		this.separator = options.separator || ""
 		this.compiler = options.compiler || false
     this.regex = options.regex || false
-		this.log = typeof options.log === "undefined" ? function(m) {console.log(m)} : options.log
+		this.log = function() {
+      var log = typeof options.log === "undefined" ? function(m, l) { if (l < 2) console.log(m) } : options.log
+      return function (msg, level) {
+        if (typeof log === "function") log(msg, level)
+      }
+    }()
 	}
 	quickCompile.prototype = {
     processor: function (fileArray, sep, regex, comp) {
@@ -17,14 +22,14 @@ module.exports = (function () {
         var stat
         try {
           stat = fs.statSync(filePath)
-          if (/^res/.test(filePath)) throw new Error("Wrong folder")
         } catch (error) {
-          this.log("statError - filePath: " + filePath)
+          this.log("statError - filePath: " + filePath, 0)
           throw error
         }
         if (stat.isFile()) {
           if (regex && !regex.test(filePath)) continue
           input = String(fs.readFileSync(filePath))
+          this.log("Read source file: " + filePath + " with " + input.length + " characters.", 2)
           if (comp) input = comp(input)
           out += !!i ? sep + input : input
         } else {
@@ -35,7 +40,7 @@ module.exports = (function () {
           try {
             out += this.processor(dirFiles, sep, regex, comp)
           } catch (error) {
-            this.log("processorError - filePath: " + filePath)
+            this.log("processorError - filePath: " + filePath, 0)
             throw error
           }
         }
@@ -54,10 +59,10 @@ module.exports = (function () {
       try {
         out = this.processor(fileArray, sep, regex, comp)
 			} catch (error) {
-        this.log("generatorError - fileArray: [" + fileArray.toString() + "]")
+        this.log("generatorError - fileArray: [" + fileArray.toString() + "]", 0)
         throw error
       }
-      if (log) log("Writing file: \"" + outputPath + "\" with " + out.length + " characters", 1)
+      this.log("Writing file: \"" + outputPath + "\" with " + out.length + " characters", 1)
 			fs.writeFileSync(outputPath, out)
 		},
 		generate: function () {
