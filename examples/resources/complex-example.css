@@ -1,6 +1,7 @@
 /* bootstrap */
 * { padding: 1em; border-radius: 5px; }
-h1, h2, h3, h4, h5, h6 { padding: 2em; border-radius: 10px; }/* Backgrounds */
+h1, h2, h3, h4, h5, h6 { padding: 2em; border-radius: 10px; }
+/* Backgrounds */
 body { background: black }
 h1, h2, h3, h4, h5, h6 { background: slategray }
 blockquote { background: midnightblue; }
@@ -10,7 +11,7 @@ h1, h2, h3, h4, h5, h6 { color: midnightblue }
 a { color: lightskyblue }
 blockquote { color: powderblue;}
 /* Normallizer */
-body { margin: 0 }
+body { margin: 8px }
 * { font-family: sans-serif }
 a { text-decoration: none }
 a:hover { text-decoration: underline }

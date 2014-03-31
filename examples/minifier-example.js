@@ -1,7 +1,7 @@
 var quickCompile = require("../")
 
 var cssMinifier = function (code) {
-	return code.replace(/\/[\n\s]*\*[\s\S]*?\*\/[\n\s]*/g, "").replace(/([\n\:\{\}\;,]|[\w\d\*]\s)([\s\n\}\{]+)/g, function (match, prec, suff) {
+	return code.replace(/[\n\s]*\/\*[\s\S]*?\*\/[\n\s]*/g, "").replace(/([\n\:\{\}\;,]|[\w\d\*]\s)([\s\n\}\{]+)/g, function (match, prec, suff) {
 		return prec + suff.replace(/[\s\n]+/g, "")
 	})
 }

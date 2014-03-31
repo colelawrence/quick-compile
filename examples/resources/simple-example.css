@@ -8,7 +8,7 @@ h1, h2, h3, h4, h5, h6 { color: midnightblue }
 a { color: lightskyblue }
 blockquote { color: powderblue;}
 /* Normallizer */
-body { margin: 0 }
+body { margin: 8px }
 * { font-family: sans-serif }
 a { text-decoration: none }
 a:hover { text-decoration: underline }

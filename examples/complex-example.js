@@ -41,8 +41,9 @@ var options = {
       files: jsFiles,
       regex: /\.js$/,
       separator: ";\n"
-    }
-	},
+    },
+  },
+  cacheFile : "resources/complex-example.cache.json",
 	log: function (msg) {
 		console.log("quickCompile: " + util.inspect(msg));
 	},
