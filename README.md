@@ -29,13 +29,15 @@ quick-compile has many useful options that help you configure the way files are 
 
 * **files** - `String` or `Array` of the path or files you are targetting (required)
 
-* **separator** - `String` used to separate the files
+* **separator** - `String` used to separate the files (before compiling)
 
 * **compiler** - `Function` that returns modified src, useful for minifying
 
 * **regex** - `RegExp` that is used to determine which files you are targetting
 
 * **log** - `Function` that handles output from quick-compile, can be set to *false*
+
+* **cacheFile** - `String` of the path to a file a hash cache can be saved to.
 
 
 More examples are available in the examples folder.
