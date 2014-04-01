@@ -1,9 +1,32 @@
 {
-    "files\\vendors\\bootstrap.css": "TFUG67BMnCQsY3HweYVZRQ==",
-    "files\\css\\backgrounds.css": "SmZxbWrhWe+hPE8yGw3NgA==",
-    "files\\css\\cmfixxer.css": "O/et0mNW2cfYQxcOI7ShMA==",
-    "files\\css\\colors.css": "1WmOGOSGWf74AYUBJckEyg==",
-    "files\\css\\normallizer.css": "/yfL3YAmhjs6UyjsgJacKw==",
-    "files\\vendors\\jquery.js": "zjCOPfL4igAmF54ZJrDXIg==",
-    "files\\js\\page.js": "Van3nzkK9+zfcI+i0UPAuw=="
+    "md5": {
+        "files\\vendors\\bootstrap.css": "TFUG67BMnCQsY3HweYVZRQ==",
+        "files\\css\\backgrounds.css": "SmZxbWrhWe+hPE8yGw3NgA==",
+        "files\\css\\colors.css": "1WmOGOSGWf74AYUBJckEyg==",
+        "files\\css\\normallizer.css": "/yfL3YAmhjs6UyjsgJacKw==",
+        "files\\vendors\\jquery.js": "zjCOPfL4igAmF54ZJrDXIg==",
+        "files\\js\\page.js": "Van3nzkK9+zfcI+i0UPAuw=="
+    },
+    "compiles": {
+        "resources/complex-example.min.css": [
+            "files\\vendors\\bootstrap.css",
+            "files\\css\\backgrounds.css",
+            "files\\css\\colors.css",
+            "files\\css\\normallizer.css"
+        ],
+        "resources/complex-example.min.js": [
+            "files\\vendors\\jquery.js",
+            "files\\js\\page.js"
+        ],
+        "resources/complex-example.css": [
+            "files\\vendors\\bootstrap.css",
+            "files\\css\\backgrounds.css",
+            "files\\css\\colors.css",
+            "files\\css\\normallizer.css"
+        ],
+        "resources/complex-example.js": [
+            "files\\vendors\\jquery.js",
+            "files\\js\\page.js"
+        ]
+    }
 }

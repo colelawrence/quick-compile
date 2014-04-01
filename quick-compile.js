@@ -1,6 +1,6 @@
-var fs = require('fs')
-var path = require('path')
-var crypto = require('crypto')
+var fs = require("fs")
+var path = require("path")
+var crypto = require("crypto")
 module.exports = (function () {
   var quickCompile = function (options) {
     this.files = options.files
@@ -20,15 +20,14 @@ module.exports = (function () {
         this.log("Found cache file: " + this.cacheFile, 2)
       } catch (err) {
         this.log("Cache file not written yet: " + this.cacheFile, 2)
-        this.cache = {}
       }
-    else this.cache = {}
+    if (!this.cache)
+      this.cache = { md5: {}, compiles: {} }
     this.newcache = {}
   }
   quickCompile.prototype = {
     processor: function (fileArray, sep, regex) {
       var inputFiles = []
-      var input
       for (var i = 0, len = fileArray.length; i < len; i++) {
         var filePath = fileArray[i]
         var stat
@@ -63,7 +62,6 @@ module.exports = (function () {
       if (regex && typeof regex === "string") regex = new RegExp(regex)
       var fileArray = options.files || []
       if (typeof fileArray === "string") fileArray = [fileArray]
-      var log = this.log
       var inputFiles
       try {
         inputFiles = this.processor(fileArray, sep, regex)
@@ -75,23 +73,31 @@ module.exports = (function () {
       var input
       var md5
       var filechanged
+      var filePath
       var totalchanged = false
+      var fileListChanged = false
+      var cachedFiles
+      cachedFiles = this.cacheFile ? this.cache.compiles[outputPath] : false
+      cachedFiles = cachedFiles ? cachedFiles.slice() : false
       for (var i = 0, len = inputFiles.length; i < len; i++) {
-        var filePath = inputFiles[i]
+        filePath = inputFiles[i]
+        if (cachedFiles && cachedFiles.shift() !== filePath) {
+          fileListChanged = totalchanged = true
+          cachedFiles = false
+          this.log("Detected different set of input files for: " + outputPath, 2)
+        }
         input = this.newcache[filePath]
         if (input) {
           filechanged = input.changed
           md5 = input.md5
           input = input.input
-          this.log("Read cached source: " + filePath + " with " + input.length + " characters.", 2)
+          this.log("Read cache: " + filePath + " with " + input.length + " characters.", 2)
         } else {
           input = String(fs.readFileSync(filePath))
           md5 = crypto.createHash("md5").update(input).digest("base64")
-          if (this.cacheFile && this.cache[filePath] === undefined)
-            this.log("Added new file: " + filePath, 2)
-          filechanged = !this.cacheFile || md5 !== this.cache[filePath]
+          filechanged = !this.cacheFile || md5 !== this.cache.md5[filePath]
           this.newcache[filePath] = { md5:md5, input:input, changed:filechanged }
-          this.log("Read source file: " + filePath + " with " + input.length + " characters.", 2)
+          this.log("Read file:  " + filePath + " with " + input.length + " characters.", 2)
         }
         if (filechanged) totalchanged = true
         out += !!i ? sep + input : input
@@ -101,6 +107,7 @@ module.exports = (function () {
           out = comp(out)
         this.log("Writing file: \"" + outputPath + "\" with " + out.length + " characters", 1)
         fs.writeFileSync(outputPath, out)
+        this.cache.compiles[outputPath] = inputFiles
       } else {
         this.log("No changes for file: \"" + outputPath + "\"", 1)
       }
@@ -120,7 +127,7 @@ module.exports = (function () {
       }
       if (this.cacheFile) {
         for (key in this.newcache)
-          this.cache[key] = this.newcache[key].md5
+          this.cache.md5[key] = this.newcache[key].md5
         fs.writeFileSync(this.cacheFile, JSON.stringify(this.cache, null, 4))
       }
     }
