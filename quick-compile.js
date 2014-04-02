@@ -109,7 +109,7 @@ module.exports = (function () {
         fs.writeFileSync(outputPath, out)
         this.cache.compiles[outputPath] = inputFiles
       } else {
-        this.log("No changes for file: \"" + outputPath + "\"", 1)
+        this.log("No changes for file: \"" + outputPath + "\"", 2)
       }
     },
     generate: function () {
